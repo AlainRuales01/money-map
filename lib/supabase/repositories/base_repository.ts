@@ -13,4 +13,29 @@ export class BaseRepository<T> {
         const { data: incomes } = await supabase.from(this.table).select();
         return incomes as T[];
     }
+
+    // Obtener un usuario por id
+    async getById(id: string): Promise<T> {
+        const supabase = await createClient();
+        const { data: incomes } = await supabase.from(this.table).select().eq('id', id);
+        return incomes ? incomes[0] : null;
+    }
+
+    // Crear 
+    async create(data: T) {
+        const supabase = await createClient();
+        await supabase.from(this.table).insert([data]);
+    }
+
+    // Actualizar
+    async update(id: string, data: T) {
+        const supabase = await createClient();
+        await supabase.from(this.table).update(data).eq('id', id);
+    }
+
+    // Eliminar
+    async delete(id: string) {
+        const supabase = await createClient();
+        await supabase.from(this.table).delete().eq('id', id);
+    }
 }
