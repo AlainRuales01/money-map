@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/supabase_client';
+import { createClient } from '@/lib/supabase/supabase-client';
 
 export class BaseRepository<T> {
     private table: string;

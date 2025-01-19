@@ -1,5 +1,5 @@
-import { CategoryType } from "@/models/category_type";
-import { BaseRepository } from "./base_repository";
+import { CategoryType } from "@/models/category-type";
+import { BaseRepository } from "./base-repository";
 
 export class CategoryTypeRepository extends BaseRepository<CategoryType> {
     constructor() {
