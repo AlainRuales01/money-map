@@ -1,4 +1,4 @@
-import { IncomeRepository } from "@/lib/supabase/repositories/income-repository";
+import { IncomeRepository } from "@/lib/repositories/income-repository";
 
 export class IncomeService {
     private incomeRepository: IncomeRepository;

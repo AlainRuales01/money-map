@@ -1,4 +1,4 @@
-import { CategoryTypeRepository } from "@/lib/supabase/repositories/category-type-repository";
+import { CategoryTypeRepository } from "@/lib/repositories/category-type-repository";
 
 export class CategoryTypeService {
     private categoryTypeRepository: CategoryTypeRepository;
