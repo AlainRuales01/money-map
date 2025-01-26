@@ -8,12 +8,14 @@ export default async function CategoryTypeTable()
             <thead>
                 <tr>
                     <th>Nombre</th>
+                    <th>Descripción</th>
                 </tr>
             </thead>
             <tbody>
                 {categoryTypes.map(categoryType => (
                     <tr key={categoryType.id}>
                         <td>{categoryType.name}</td>
+                        <td>{categoryType.description}</td>
                     </tr>
                 ))}
             </tbody>
