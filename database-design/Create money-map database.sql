@@ -1,7 +1,14 @@
 -- Create the tables
 create table category_type (
   id uuid primary key,
-  name varchar(20) not null
+  name varchar(20) not null,
+  description text not null
+);
+
+create table transaction_type(
+  id uuid primary key,
+  name varchar(20) not null,
+  description text not null
 );
 
 create table financial_resource (
@@ -13,31 +20,23 @@ create table financial_resource (
 create table category(
   id uuid primary key,
   name varchar(20) not null,
+  description text not null,
   category_type_id uuid not null,
   CONSTRAINT FK_CATEGORY_CATEGORY_TYPE FOREIGN KEY (category_type_id)REFERENCES category_type(id)
-)
+);
 
-create table income(
+create table transaction(
   id uuid primary key,
   description varchar(250) not null,
   date Date not null,
-  mount decimal(10,2),
+  mount decimal(10,2) not null, 
   category_id uuid not null,
   financial_resource_id uuid not null,
-  CONSTRAINT FK_INCOME_CATEGORY FOREIGN KEY (category_id)REFERENCES category(id),
-  CONSTRAINT FK_INCOME_FINANCIAL_RESOURCE FOREIGN KEY (financial_resource_id)REFERENCES financial_resource(id)
-)
-
-create table outcome(
-  id uuid primary key,
-  description varchar(250) not null,
-  date Date not null,
-  mount decimal(10,2),
-  category_id uuid not null,
-  financial_resource_id uuid not null,
-  CONSTRAINT FK_OUTCOME_CATEGORY FOREIGN KEY (category_id)REFERENCES category(id),
-  CONSTRAINT FK_OUTCOME_FINANCIAL_RESOURCE FOREIGN KEY (financial_resource_id)REFERENCES financial_resource(id)
-)
+  transaction_type_id uuid not null,
+  CONSTRAINT FK_TRANSACTION_CATEGORY FOREIGN KEY (category_id)REFERENCES category(id),
+  CONSTRAINT FK_TRANSACTION_FINANCIAL_RESOURCE FOREIGN KEY (financial_resource_id)REFERENCES financial_resource(id),
+  CONSTRAINT FK_TRANSACTION_TRANSACTION_TYPE FOREIGN KEY (transaction_type_id)REFERENCES transaction_type(id)
+);
 
 create table budget(
   id uuid primary key,
@@ -45,12 +44,18 @@ create table budget(
   mount decimal(10,2),
   category_id uuid not null,
   CONSTRAINT FK_INCOME_CATEGORY FOREIGN KEY (category_id)REFERENCES category(id)
-)
+);
 
 
 COMMENT ON TABLE category_type IS 'Table with types of categories';
 
 COMMENT ON COLUMN category_type.name IS 'Name of category type';
+COMMENT ON COLUMN category_type.description IS 'Description of category type';
+
+COMMENT ON TABLE transaction_type IS 'Table with types of transactions';
+
+COMMENT ON COLUMN transaction_type.name IS 'Name of transaction type';
+COMMENT ON COLUMN transaction_type.description IS 'Description of transaction type';
 
 COMMENT ON TABLE category IS 'Table with categories';
 
@@ -61,18 +66,11 @@ COMMENT ON TABLE financial_resource IS 'Table with financial resources which are
 COMMENT ON COLUMN financial_resource.name IS 'Name of financial resource';
 COMMENT ON COLUMN financial_resource.mount IS 'Mount of money before incomes and outcomes';
 
-COMMENT ON TABLE income IS 'Table with outcomes';
+COMMENT ON TABLE transaction IS 'Table with outcomes and incomes defined by transaction_type';
 
-COMMENT ON COLUMN income.description IS 'Description from where income came from';
-COMMENT ON COLUMN income.date IS 'Date of the income';
-COMMENT ON COLUMN income.mount IS 'Mount of money of the income';
-
-
-COMMENT ON TABLE outcome IS 'Table with incomes';
-
-COMMENT ON COLUMN outcome.description IS 'Description of outcome';
-COMMENT ON COLUMN outcome.date IS 'Date of the outcome';
-COMMENT ON COLUMN outcome.mount IS 'Mount of money of the outcome';
+COMMENT ON COLUMN transaction.description IS 'Description from where income or outcome came from';
+COMMENT ON COLUMN transaction.date IS 'Date of the income or outcome';
+COMMENT ON COLUMN transaction.mount IS 'Mount of money of the income or outcome';
 
 COMMENT ON TABLE budget IS 'Table with set budgets by dates';
 COMMENT ON COLUMN budget.date IS 'Date from where the budget starts';
