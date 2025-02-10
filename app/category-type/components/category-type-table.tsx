@@ -1,24 +1,25 @@
+"use client";
+import Table from '@/app/shared/components/Table';
+import { CategoryType } from '@/lib/models/category-type';
+import { getAll } from '@/app/actions/category-type';
+import { useEffect, useState } from 'react';
 
-import { categoryTypeRepository } from '../../shared/services';
-export default async function CategoryTypeTable()
-{
-    const categoryTypes = await categoryTypeRepository.getAll();
+const CategoryTypeTable = () => {
+    const [data, setData] = useState<CategoryType[]>([]);
+
+    useEffect(() => {
+        const initialData = async () => {
+            const result = await getAll();
+            setData(result.result);
+        };
+        initialData();
+    }, []);
+
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                </tr>
-            </thead>
-            <tbody>
-                {categoryTypes.map(categoryType => (
-                    <tr key={categoryType.id}>
-                        <td>{categoryType.name}</td>
-                        <td>{categoryType.description}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <div>
+            <Table columns={[{ key: "id", label: "ID" },{ key: "name", label: "Nombre" },]}
+            data={data}/>
+        </div>
     );
-}
+};
+export default CategoryTypeTable;
