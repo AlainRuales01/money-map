@@ -6,11 +6,13 @@ interface TableProps<T> {
         label: string;
     }[];
     data: T[];
+    actionComponent?: (row: T) => React.ReactNode;
 }
 
 const Table = <T extends Record<string, any>>({
     columns,
-    data
+    data,
+    actionComponent
 } : TableProps<T>) => {
     return(
         <table>
@@ -22,6 +24,7 @@ const Table = <T extends Record<string, any>>({
                         </th>
                     )
                     )}
+                    {actionComponent && <th className="px-4 py-2 text-left border">Acciones</th>}
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +35,9 @@ const Table = <T extends Record<string, any>>({
                 {row[col.key]}
               </td>
             ))}
+            {actionComponent && (
+                <td className="px-4 py-2 border">{actionComponent(row)}</td>
+            )}
           </tr>
         ))}
       </tbody>
