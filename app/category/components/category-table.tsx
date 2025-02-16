@@ -2,7 +2,7 @@
 import { Category } from "@/lib/models/category";
 import { useEffect, useState } from "react";
 import Table from "@shared/components/Table";
-import { getAll } from "@/app/actions/category";
+import { getAll } from "@/lib/actions/category";
 
 const CategoryTable = () =>  {
     const [data, setData] = useState<Category[]>([]);

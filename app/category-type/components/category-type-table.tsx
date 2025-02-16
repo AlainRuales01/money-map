@@ -1,7 +1,7 @@
 "use client";
 import Table from '@/app/shared/components/Table';
 import { CategoryType } from '@/lib/models/category-type';
-import { getAll } from '@/app/actions/category-type';
+import { getAll } from '@/lib/actions/category-type';
 import { useEffect, useState } from 'react';
 
 const CategoryTypeTable = () => {
