@@ -22,7 +22,7 @@ export class BaseRepository<T> {
     }
 
     // Crear 
-    async create(data: T) {
+    async add(data: T) {
         const supabase = await createClient();
         await supabase.from(this.table).insert([data]);
     }
