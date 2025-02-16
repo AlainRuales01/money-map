@@ -17,25 +17,24 @@ const CategoryTable = () =>  {
     
     
     const handleEdit = (category: Category) => {
-        alert(category.name);
+        alert(`editar: ${category.name}`);
     };
 
     return (
         <div>
-            <h1>Category</h1>
-            <p>Find me in ./app/category/page.tsx</p>
             <Table columns={[{ key: "id", label: "ID" },{ key: "name", label: "Nombre" },]}
             data={data}
             actionComponent={(row) => (
-              <button 
-                onClick={() => handleEdit(row)} 
-                className="bg-blue-500 text-white px-2 py-1 rounded"
-              >
-                Editar
-              </button>
+              <div>
+                <button 
+                  onClick={() => handleEdit(row)} 
+                  className="bg-blue-500 text-white px-2 py-1 rounded">
+                    Editar
+                </button>
+              </div>
+              
             )} />
-            
         </div>
-        )
+      )
 }
 export default CategoryTable;
