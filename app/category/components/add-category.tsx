@@ -1,16 +1,28 @@
 'use client';
 
 import { add } from "@/lib/actions/category";
-import { useState } from "react";
+import {getAll } from "@/lib/actions/category-type";
+import { CategoryType } from "@/lib/models/category-type";
+import { useEffect, useState } from "react";
 
 const AddCategory = () => {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [categoryTypes, setCategoryTypes] = useState<CategoryType[]>([]);
+    const [categoryTypeId, setCategoryTypeId] = useState("");
+
+
+    useEffect(() => {
+        const initialData = async () => {
+          const result = await getAll();
+          setCategoryTypes(result.result);
+        };
+        initialData();
+      }, []);
 
     const handleAdd = async () => {
-        console.log("result");
-        await add({name: "nueva categoria", description: "nueva descripcion", category_type_id: "ef141853-c2e9-4509-89bc-26c29f78fe13" });
+        await add({name: name, description: description, category_type_id: categoryTypeId});
     }
 
     return (
@@ -37,9 +49,11 @@ const AddCategory = () => {
             </div>
             <div>
                 <label className="text-black">Tipo de Categoría</label>
-                <select className="border border-gray-300 p-1 rounded mb-2 text-black" onChange={(e) => console.log(e.target.value)}>
-                    <option className="text-black" value="1">Ingreso</option>
-                    <option className="text-black" value="2">Egreso</option>
+                <select className="border border-gray-300 p-1 rounded mb-2 text-black" onChange={(e) => setCategoryTypeId(e.target.value)}>
+                    <option value="1" className="text-black">Seleccione una categoría</option>
+                    {categoryTypes.map(categoryType => (
+                        <option key={categoryType.id} className="text-black" value={categoryType.id}>{categoryType.name}</option>
+                    ))}
                 </select>
             </div>
             <button 
