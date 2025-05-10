@@ -9,37 +9,37 @@ const AddCategory = () => {
     const [description, setDescription] = useState("");
 
     const handleAdd = async () => {
-        await add({ name: "nueva categoria", description: "nueva descripcion", category_type: "1" });
         console.log("result");
+        await add({name: "nueva categoria", description: "nueva descripcion", category_type_id: "ef141853-c2e9-4509-89bc-26c29f78fe13" });
     }
 
     return (
         <div>
-            <h1>Agregar Categoría</h1>
+            <h1 className="text-black">Agregar Categoría</h1>
             <div>
-                <label>Nombre</label>
+                <label className="text-black">Nombre</label>
                 <input 
                 type="text" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
                 placeholder="Nombre" 
-                className="border border-gray-300 p-1 rounded mb-2" />
+                className="border border-gray-300 p-1 rounded mb-2 text-black" />
             </div>
             
             <div>
-                <label>Descripción</label>
+                <label className="text-black">Descripción</label>
                 <input 
                 type="text" 
                 value={description} 
                 onChange={(e) => setDescription(e.target.value)} 
                 placeholder="Descripción" 
-                className="border border-gray-300 p-1 rounded mb-2" />
+                className="border border-gray-300 p-1 rounded mb-2 text-black" />
             </div>
             <div>
-                <label>Tipo de Categoría</label>
-                <select className="border border-gray-300 p-1 rounded mb-2" onChange={(e) => console.log(e.target.value)}>
-                    <option value="1">Ingreso</option>
-                    <option value="2">Egreso</option>
+                <label className="text-black">Tipo de Categoría</label>
+                <select className="border border-gray-300 p-1 rounded mb-2 text-black" onChange={(e) => console.log(e.target.value)}>
+                    <option className="text-black" value="1">Ingreso</option>
+                    <option className="text-black" value="2">Egreso</option>
                 </select>
             </div>
             <button 
